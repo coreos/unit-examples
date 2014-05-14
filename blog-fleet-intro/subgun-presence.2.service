@@ -1,0 +1,10 @@
+[Unit]
+Description=subgun presence service
+BindsTo=subgun-http.2.service
+
+[Service]
+ExecStart=/usr/bin/docker run -rm -name subgun-presence-2 -e AWS_ACCESS_KEY=AKIAIBC5MW3ONCW6J2XQ -e AWS_SECRET_KEY=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 -e AWS_REGION=us-east-1 -e ELB_NAME=bcwaldon-fleet-lb coreos/elb-presence
+ExecStop=/usr/bin/docker kill subgun-presence-2
+
+[X-Fleet]
+X-ConditionMachineOf=subgun-http.2.service
