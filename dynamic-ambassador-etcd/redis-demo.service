@@ -1,0 +1,3 @@
+[Service]
+ExecStart=/bin/bash -c "HOST_IP=$(/bin/ifconfig eth0 | awk '/inet /{print $2}') && exec /usr/bin/docker run -rm -name %n -p $HOST_IP::6379 crosbymichael/redis"
+ExecStop=/usr/bin/docker stop -t 3 %n
