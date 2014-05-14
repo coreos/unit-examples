@@ -1,0 +1,13 @@
+[Unit]
+Description=Example 1.0.0
+After=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=/usr/bin/docker pull coreos/example:1.0.0
+ExecStart=/bin/bash -c '/usr/bin/docker start -a example-1A || /usr/bin/docker run --rm --name example-1A  -p 8085:80 coreos/example:1.0.0'
+ExecStop=/bin/bash -c '/usr/bin/docker stop example-1A; \
+  /usr/bin/docker rm example-1A '
+
+[X-Fleet]
+X-Conflicts=example-v1.0.0-*.service

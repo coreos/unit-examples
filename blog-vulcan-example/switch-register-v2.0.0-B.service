@@ -1,0 +1,13 @@
+[Unit]
+Description=Register for Example
+After=example-v2.0.0-B.service
+
+[Service]
+EnvironmentFile=/etc/environment
+RemainAfterExit=yes
+ExecStart=/bin/sh -c "/bin/etcdctl set \"/vulcand/upstreams/example2/endpoints/switch-register-v2.0.0-B.service\" http://$COREOS_PUBLIC_IPV4:8086; \
+  /bin/etcdctl set \"/vulcand/hosts/example.com/locations/home/path\" '/.*'";
+ExecStop=/bin/sh -c "/bin/etcdctl rm /vulcand/upstreams/example2/endpoints/switch-register-v2.0.0-B.service"
+
+[X-Fleet]
+X-ConditionMachineOf=example-v2.0.0-B.service
