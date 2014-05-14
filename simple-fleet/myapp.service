@@ -1,0 +1,7 @@
+[Unit]
+Description=MyApp
+After=docker.service
+Requires=docker.service
+
+[Service]
+ExecStart=/usr/bin/docker run busybox /bin/sh -c "while true; do echo Hello World; sleep 1; done"
