@@ -1,5 +1,6 @@
 [Unit]
 Description=Register for Example
+BindsTo=example-v2.0.0-B.service
 After=example-v2.0.0-B.service
 
 [Service]
