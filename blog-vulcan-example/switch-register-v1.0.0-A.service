@@ -6,7 +6,8 @@ After=example-v1.0.0-A.service
 EnvironmentFile=/etc/environment
 RemainAfterExit=yes
 ExecStart=/bin/sh -c "/bin/etcdctl set \"/vulcand/upstreams/example/endpoints/switch-register-v1.0.0-A.service\" http://$COREOS_PUBLIC_IPV4:8085; \
-  /bin/etcdctl set \"/vulcand/hosts/example.com/locations/home/path\" '/.*'";
+  /bin/etcdctl set \"/vulcand/hosts/example.com/locations/home/path\" '/.*'; \
+  /bin/etcdctl set /vulcand/hosts/example.com/locations/home/upstream example"
 ExecStop=/bin/sh -c "/bin/etcdctl rm /vulcand/upstreams/example/endpoints/switch-register-v1.0.0-A.service"
 
 [X-Fleet]
