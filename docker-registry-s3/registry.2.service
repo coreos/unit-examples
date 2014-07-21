@@ -1,0 +1,12 @@
+[Unit]
+Description=Custom Docker Registry
+After=docker.service
+ 
+[Service]
+TimeoutStartSec=0
+ExecStartPre=/usr/bin/docker pull registry
+ExecStart=/bin/bash -c '/usr/bin/docker start -a registry2 || /usr/bin/docker run -rm --name registry2 -p 5000:5000 -e AWS_KEY="replace-me" -e AWS_SECRET="replace-me" -e SETTINGS_FLAVOR=s3 -e AWS_BUCKET=replace-me -e STORAGE_PATH=/prod registry:0.7.1'
+ExecStop=/usr/bin/docker rm -f registry2
+ 
+[X-Fleet]
+X-Conflicts=registry*.service
