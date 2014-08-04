@@ -4,10 +4,11 @@ After=docker.service
 
 [Service]
 TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill example-1B
+ExecStartPre=-/usr/bin/docker rm example-1B
 ExecStartPre=/usr/bin/docker pull coreos/example:1.0.0
-ExecStart=/bin/bash -c '/usr/bin/docker start -a example-1B || /usr/bin/docker run --rm --name example-1B -p 8085:80 coreos/example:1.0.0'
-ExecStop=/bin/bash -c '/usr/bin/docker stop example-1B; \
-  /usr/bin/docker rm example-1B'
+ExecStart=/usr/bin/docker run --rm --name example-1B -p 8086:80 coreos/example:1.0.0
+ExecStop=/usr/bin/docker kill example-1B
 
 [X-Fleet]
 X-Conflicts=example-v1.0.0-*.service

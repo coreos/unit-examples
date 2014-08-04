@@ -2,6 +2,8 @@
 After=etcd-amb-redis2.service
 
 [Service]
+ExecStartPre=-/usr/bin/docker kill %n
+ExecStartPre=-/usr/bin/docker rm %n
 ExecStart=/usr/bin/docker run -link etcd-amb-redis2.service:etcd -rm -name %n -p 127.0.0.1::6379 polvi/dynamic-etcd-amb redis-A 6379
 ExecStop=/usr/bin/docker stop -t 3 %n
 
