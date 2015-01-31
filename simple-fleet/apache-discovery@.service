@@ -1,0 +1,11 @@
+[Unit]
+Description=Announce Apache1
+BindsTo=apache@%i.service
+After=apache@%i.service
+
+[Service]
+ExecStart=/bin/sh -c "while true; do etcdctl set /services/website/apache@%i '{ \"host\": \"%H\", \"port\": 80, \"version\": \"52c7248a14\" }' --ttl 60;sleep 45;done"
+ExecStop=/usr/bin/etcdctl rm /services/website/apache@%i
+
+[X-Fleet]
+MachineOf=apache@%i.service
