@@ -8,4 +8,4 @@ ExecStart=/usr/bin/docker run --name apache -p 80:80 coreos/apache /usr/sbin/apa
 ExecStop=/usr/bin/docker stop apache
 
 [X-Fleet]
-X-Conflicts=apache.*.service
+Conflicts=apache@*.service
